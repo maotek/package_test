@@ -1,4 +1,4 @@
-from maotek import Help
+from maotek import Hello
 
 h = Hello('mao')
 print(h.greet())
