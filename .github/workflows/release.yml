@@ -29,5 +29,3 @@ jobs:
           tag_name: ${{ github.ref_name }}
           files: |
             dist/*
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
