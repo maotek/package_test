@@ -1,1 +1,0 @@
-from .maotek_greeter import Hello

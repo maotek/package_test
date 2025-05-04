@@ -1,9 +1,11 @@
 README.md
 setup.py
-maotek/__init__.py
-maotek/maotek_greeter.py
 maotek.egg-info/PKG-INFO
 maotek.egg-info/SOURCES.txt
 maotek.egg-info/dependency_links.txt
 maotek.egg-info/requires.txt
 maotek.egg-info/top_level.txt
+src/__init__.py
+src/maotek/__init__.py
+src/maotek/helper.py
+src/maotek/maotek_greeter.py
