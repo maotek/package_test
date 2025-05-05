@@ -1,0 +1,55 @@
+# .github/workflows/bump-version.yml
+name: Bump Version on Push to Main
+
+on:
+  push:
+    branches:
+      - main  # Trigger on push to `main`
+
+jobs:
+  bump-version:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Needed to access tags
+
+      - name: Get latest tag (if any)
+        id: get_tag
+        run: |
+          # Get the latest tag (e.g., v1.0.1)
+          latest_tag=$(git describe --tags --abbrev=0)
+          echo "Latest tag: $latest_tag"
+          
+          # Extract the version without the "v" prefix
+          version=${latest_tag#v}
+          echo "Version: $version"
+          
+          # Split version into major, minor, patch
+          IFS='.' read -r major minor patch <<< "$version"
+          
+          # Increment the patch version
+          next_patch=$((patch + 1))
+          next_version="$major.$minor.$next_patch-pre"  # Set the pre-release version
+          
+          # Output the next version
+          echo "Next version: $next_version"
+          echo "next_version=$next_version" >> "$GITHUB_ENV"
+
+      - name: Update VERSION file
+        run: |
+          # Write the new version to the VERSION file
+          echo "$next_version" > VERSION
+          cat VERSION  # Display the updated VERSION
+
+      - name: Commit and push new version
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Commit the VERSION file update
+          git add VERSION
+          git commit -m "Bump version to $next_version"
+          git push
