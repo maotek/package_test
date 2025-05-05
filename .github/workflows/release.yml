@@ -24,10 +24,10 @@ jobs:
           python setup.py sdist bdist_wheel
       - name: Upload to GitHub Release
         uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
         with:
           name: Release ${{ github.ref_name }}
           tag_name: ${{ github.ref_name }}
           files: |
             dist/*
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
