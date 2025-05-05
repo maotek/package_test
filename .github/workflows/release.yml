@@ -5,6 +5,9 @@ on:
     tags:
       - '*'
 
+permissions:
+  contents: write  # ⬅ REQUIRED to create/update releases
+
 jobs:
   build:
 
