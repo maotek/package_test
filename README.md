@@ -1,1 +1,1 @@
-maosheng is cool
+Package test with setup.py DEPRECATED
